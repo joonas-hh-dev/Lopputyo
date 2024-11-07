@@ -10,9 +10,11 @@ import StatisticsPage from './pages/StatisticsPage.jsx';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const basePath = isProduction ? '/Lopputyo/' : '/';
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter basename={isProduction ? '/Lopputyo/' : ''}>
+    <HashRouter basename={basePath}>
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<CustomerPage />} />
