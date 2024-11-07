@@ -8,13 +8,9 @@ import TrainingPage from './pages/TrainingPage.jsx';
 import CalendarPage from './pages/CalendarPage.jsx';
 import StatisticsPage from './pages/StatisticsPage.jsx';
 
-const isProduction = process.env.NODE_ENV === 'production';
-
-const basePath = isProduction ? '/Lopputyo/' : '/';
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter basename={basePath}>
+    <HashRouter basename='/'>
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<CustomerPage />} />
