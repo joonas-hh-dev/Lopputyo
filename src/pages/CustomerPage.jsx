@@ -9,7 +9,7 @@ import { saveAs } from 'file-saver';
 
 export default function CustomerPage() {
     const [customers, setCustomers] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [_isLoading, setIsLoading] = useState(true);
     const gridRef = useRef(null);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function CustomerPage() {
             },
             body: JSON.stringify(customer)
         })
-        .then(res => fetchCustomers())
+        .then(_res => fetchCustomers())
         .catch(err => console.log(err))
     }
 
@@ -50,7 +50,7 @@ export default function CustomerPage() {
         const isConfirmed = window.confirm("Are you sure you want to delete this customer?");
         if (isConfirmed) {
           fetch(link, {method: 'DELETE'})
-          .then(res => fetchCustomers())
+          .then(_res => fetchCustomers())
           .catch(err => console.error(err))
         }
       }
