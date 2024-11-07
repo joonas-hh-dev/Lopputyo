@@ -10,20 +10,22 @@ import { Link } from 'react-router-dom';
 
 function App() {
   return (
-    <Container maxWidth="xl">
-      <CssBaseline />
-      
+  <>
+    <CssBaseline />
+  
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit" component={Link} to="Lopputyo/customers">Customers</Button>
-          <Button color="inherit" component={Link} to="Lopputyo/trainings">Trainings</Button>
-          <Button color="inherit" component={Link} to="Lopputyo/calendar">Calendar</Button>
-          <Button color="inherit" component={Link} to="Lopputyo/statistics">Statistics</Button>
+          <Button color="inherit" component={Link} to="customers">Customers</Button>
+          <Button color="inherit" component={Link} to="trainings">Trainings</Button>
+          <Button color="inherit" component={Link} to="calendar">Calendar</Button>
+          <Button color="inherit" component={Link} to="statistics">Statistics</Button>
         </Toolbar>
       </AppBar>
 
-      <Outlet />
-    </Container>
+      <Container maxWidth={false}>
+        <Outlet />
+      </Container>
+  </>
   );
 }
 

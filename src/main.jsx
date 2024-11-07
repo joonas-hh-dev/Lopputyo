@@ -13,10 +13,11 @@ createRoot(document.getElementById('root')).render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="Lopputyo/customers" element={<CustomerPage />} />
-          <Route path="Lopputyo/trainings" element={<TrainingPage />} />
-          <Route path="Lopputyo/calendar" element={<CalendarPage />} />
-          <Route path="Lopputyo/statistics" element={<StatisticsPage />} />
+          <Route index element={<CustomerPage />} />
+          <Route path="customers" element={<CustomerPage />} />
+          <Route path="trainings" element={<TrainingPage />} />
+          <Route path="calendar" element={<CalendarPage />} />
+          <Route path="statistics" element={<StatisticsPage />} />
         </Route>
       </Routes>
     </HashRouter>
