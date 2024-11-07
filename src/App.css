@@ -1,3 +1,7 @@
+.rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
+  border-left: 1px solid #ddd;
+}
+
 .MuiTabPanel-root.css-13xfq8m-MuiTabPanel-root {
   min-width: 870px;
 }
@@ -59,9 +63,6 @@ table td {
 
 #root {
   width: 100%;
-  /*margin: 0 auto;*/
-  /*padding: 2rem;*/
-  /*text-align: center;*/
 }
 
 .logo {
