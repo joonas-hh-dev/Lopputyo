@@ -34,7 +34,6 @@ const TrainingStats = () => {
 
     return (
         <div>
-            <h2>Training Stats</h2>
             <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={statsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />

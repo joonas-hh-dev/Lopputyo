@@ -9,7 +9,8 @@ import {
     Select,
     MenuItem,
     FormControl,
-    InputLabel
+    InputLabel,
+    CircularProgress
 } from '@mui/material';
 
 export default function AddTraining(props) {
@@ -21,14 +22,15 @@ export default function AddTraining(props) {
         customer: ''
     });
     const [customers, setCustomers] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchCustomers = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch('https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/customers');
                 const data = await response.json();
-                console.log("Fetched customers:", data);
-                
                 if (data._embedded && Array.isArray(data._embedded.customers)) {
                     setCustomers(data._embedded.customers);
                 } else {
@@ -37,7 +39,10 @@ export default function AddTraining(props) {
                 }
             } catch (error) {
                 console.error('Error fetching customers:', error);
+                setError('Error fetching customers');
                 setCustomers([]);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -68,6 +73,11 @@ export default function AddTraining(props) {
     };
 
     const addTraining = () => {
+        if (!training.date || !training.duration || !training.activity || !training.customer) {
+            setError('All fields must be filled out');
+            return;
+        }
+        
         const formattedTraining = {
             ...training,
             date: new Date(training.date).toISOString(),
@@ -93,7 +103,6 @@ export default function AddTraining(props) {
                         type="datetime-local"
                         value={training.date}
                         onChange={handleInputChange}
-                        //label="Date"
                         fullWidth
                     />
                     <TextField
@@ -119,7 +128,11 @@ export default function AddTraining(props) {
                             value={training.customer}
                             onChange={handleCustomerChange}
                         >
-                            {Array.isArray(customers) && customers.length > 0 ? (
+                            {isLoading ? (
+                                <MenuItem disabled>
+                                    <CircularProgress size={24} />
+                                </MenuItem>
+                            ) : customers.length > 0 ? (
                                 customers.map(customer => (
                                     <MenuItem key={customer._links.self.href} value={customer._links.self.href}>
                                         {customer.firstname} {customer.lastname}
@@ -130,12 +143,13 @@ export default function AddTraining(props) {
                             )}
                         </Select>
                     </FormControl>
+                    {error && <div style={{ color: 'red' }}>{error}</div>}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={addTraining} color="primary">
+                    <Button onClick={addTraining} color="primary" disabled={!training.date || !training.duration || !training.activity || !training.customer}>
                         Save
                     </Button>
                 </DialogActions>

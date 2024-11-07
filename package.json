@@ -1,12 +1,12 @@
 {
   "name": "lopputy-",
   "private": true,
-  "homepage": "https://joonas-hh-dev.github.io/Lopputyo",
+  "homepage": "/Lopputyo",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -27,6 +27,7 @@
     "react-big-calendar": "^1.15.0",
     "react-dom": "^18.3.1",
     "react-json-to-csv": "^1.2.0",
+    "react-router-dom": "^6.27.0",
     "recharts": "^2.13.3"
   },
   "devDependencies": {

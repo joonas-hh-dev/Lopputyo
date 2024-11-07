@@ -7,9 +7,11 @@ const localizer = momentLocalizer(moment);
 
 const TrainingCalendar = () => {
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchTrainings = async () => {
+            setLoading(true);
             try {
                 const response = await fetch('https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/gettrainings');
                 const data = await response.json();
@@ -20,9 +22,10 @@ const TrainingCalendar = () => {
                         const startDate = moment(training.date).utc();
                         const endDate = startDate.clone().add(training.duration, 'minutes');
                         return {
-                            title: `${training.activity} / ${training.customer.firstname} ${training.customer.lastname}`,
+                            title: `${training.activity}`,
                             start: startDate.toDate(),
                             end: endDate.toDate(),
+                            customer: `${training.customer.firstname} ${training.customer.lastname}`,
                         };
                     });
                     setEvents(formattedEvents);
@@ -31,53 +34,45 @@ const TrainingCalendar = () => {
                 }
             } catch (error) {
                 console.error('Error fetching trainings:', error);
+            } finally {
+                setLoading(false);
             }
         };
-        
+
         fetchTrainings();
     }, []);
-
-    const eventStyleGetter = (event) => {
-        return {
-            style: {
-                backgroundColor: '#3174ad',
-                borderRadius: '5px',
-                color: 'white',
-                padding: '5px',
-                display: 'block',
-                whiteSpace: 'normal'
-            }
-        };
-    };
 
     const eventComponent = ({ event }) => {
         return (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ whiteSpace: 'nowrap' }}>{event.title}</span>
-                <span style={{ whiteSpace: 'nowrap' }}>{event.customer}</span>
+                <span>{event.title}</span>
+                <span>{event.customer}</span>
             </div>
         );
     };
 
     return (
         <div>
-            <h2>Training Calendar</h2>
-            <Calendar
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 600 }}
-            defaultView="month"
-            views={['month', 'week', 'day', 'agenda']}
-            step={60}
-            timeslots={1}
-            min={new Date(0, 0, 0, 8, 0, 0)}
-            max={new Date(0, 0, 0, 20, 0, 0)}
-            components={{
-                event: eventComponent,
-            }}
-            />
+            {loading ? (
+                <p>Loading trainings...</p>
+            ) : (
+                <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    style={{ height: 600 }}
+                    defaultView="month"
+                    views={['month', 'week', 'day', 'agenda']}
+                    step={60}
+                    timeslots={1}
+                    min={new Date(0, 0, 0, 8, 0, 0)}
+                    max={new Date(0, 0, 0, 20, 0, 0)}
+                    components={{
+                        event: eventComponent,
+                    }}
+                />
+            )}
         </div>
     );
 };
