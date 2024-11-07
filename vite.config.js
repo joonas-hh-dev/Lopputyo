@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Lopputyo/', // Set the base path for GitHub Pages
+  base: '/Lopputyo/customers',
   plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  },
 })
