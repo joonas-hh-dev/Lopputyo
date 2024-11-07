@@ -12,7 +12,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter basename={isProduction ? '/Lopputyo' : ''}>
+    <HashRouter basename={isProduction ? '/Lopputyo/' : ''}>
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<CustomerPage />} />
