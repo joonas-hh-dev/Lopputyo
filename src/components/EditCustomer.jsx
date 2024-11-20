@@ -36,7 +36,7 @@ export default function EditCustomer(props) {
                 Edit customer
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit Customer</DialogTitle>
                 <DialogContent>
                     <TextField
                     autoFocus
